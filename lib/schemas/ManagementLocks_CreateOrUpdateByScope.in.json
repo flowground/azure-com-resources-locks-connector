@@ -1,0 +1,82 @@
+{
+    "type": "object",
+    "properties": {
+        "scope": {
+            "required": true,
+            "type": "string"
+        },
+        "lockName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The lock information.",
+            "properties": {
+                "id": {
+                    "description": "The resource ID of the lock.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of the lock.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "properties": {
+                    "description": "The properties of the lock.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "level": {
+                            "description": "The level of the lock. Possible values are: NotSpecified, CanNotDelete, ReadOnly. CanNotDelete means authorized users are able to read and modify the resources, but not delete. ReadOnly means authorized users can only read from a resource, but they can't modify or delete it.",
+                            "enum": [
+                                "NotSpecified",
+                                "CanNotDelete",
+                                "ReadOnly"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "LockLevel"
+                            }
+                        },
+                        "notes": {
+                            "description": "Notes about the lock. Maximum of 512 characters.",
+                            "type": "string"
+                        },
+                        "owners": {
+                            "description": "The owners of the lock.",
+                            "items": {
+                                "description": "Lock owner properties.",
+                                "properties": {
+                                    "applicationId": {
+                                        "description": "The application ID of the lock owner.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "level"
+                    ]
+                },
+                "type": {
+                    "description": "The resource type of the lock - Microsoft.Authorization/locks.",
+                    "readOnly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "properties"
+            ],
+            "x-ms-azure-resource": true,
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
